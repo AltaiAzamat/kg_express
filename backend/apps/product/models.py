@@ -1,5 +1,5 @@
 from django.db import models
-
+from backend.apps.accounts.models import User
 # Create your models here.
 # PRODUCT MODELS
 
@@ -14,7 +14,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Subcategory(models.Model):
+class SubCategory(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -38,7 +38,7 @@ class Product(models.Model):
     price = models.DecimalField("цена", max_digits=10,decimal_places=2)
     image = models.ImageField("фото", upload_to = "product_images/")
     category = models.ForeignKey(Category,on_delete=models.PROTECT)
-    subcategory = models.ForeignKey(Subcategory,on_delete= models.PROTECT,related_name="products")
+    subcategory = models.ForeignKey(SubCategory,on_delete= models.PROTECT,related_name="products")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField("активный", default=True)
